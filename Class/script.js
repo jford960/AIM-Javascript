@@ -388,13 +388,126 @@ const children = ["Joseph", "Bethany", "Zachary"]
 const adults = ["Amy", "Andrea", "Ingrid"]
 const parents = ["Errol", "Francene"]
 const myRelatives = children.concat(adults, parents)
-console.log(myRelatives)
-console.log(children)
-console.log(adults)
+// console.log(myRelatives)
+// console.log(children)
+// console.log(adults)
 const myKin = myRelatives.concat('Eric')
-console.log(myKin)
+// console.log(myKin)
 
 const testScores = [[99, 100], [86, 92], [77, 79]]
-console.log(testScores)
+// console.log(testScores)
 const newTestScores = testScores.flat()
-console.log(newTestScores)
+// console.log(newTestScores)
+
+
+/////////////////////////
+//Class for 6-17
+//////////////////////////
+
+const panstArray = ['Haggar', 'Levis', 'Docker', 'Union Bay']
+// console.log(panstArray)
+panstArray.pop()
+// console.log(panstArray)
+panstArray.push('Lee')
+// console.log(panstArray)
+panstArray.shift()
+// console.log(panstArray)
+panstArray.unshift('Sonoma')
+// console.log(panstArray)
+
+// Array.splice(start, deleteNumber, element1, element2...)
+const hatsArray = ['baseball', 'bucket', 'boonie', 'straw', 'boater', 'beret']
+// console.log(hatsArray)
+hatsArray.splice(2, 1)
+// console.log(hatsArray)
+hatsArray.splice(3, 0, 'fedora')
+// console.log(hatsArray)
+hatsArray.splice(1, 2, 'beanie', 'cloche')
+// console.log(hatsArray)
+hatsArray.splice(2)
+// console.log(hatsArray)
+hatsArray.splice()
+// console.log(hatsArray)
+
+// Array.reverse()
+const prime = [2, 3, 5, 7]
+prime.reverse()
+// console.log(prime)
+
+// Array.indexOf()
+const strings = ['code', 'function', 'web3']
+// console.log(strings.indexOf('function'))
+// console.log(strings.indexOf('hello'))
+
+// Array.find()
+const numbers = [4, 9, 16, 25, 36]
+const first = numbers.find((value) => { return value > 18 })
+// console.log(first)
+
+function isPrime(element) {
+    let start = 2
+    while (start <= Math.sqrt(element)) {
+        if (element % start++ < 1) {
+            return false
+        }
+    }
+    return element > 1
+}
+
+// console.log([4, 6, 8, 12, 16, 18].find(isPrime))
+// console.log([4, 6, 8, 11, 13, 17, 18].find(isPrime))
+
+// console.log([4, 6, 8, 11, 13, 17, 18].find((element) => {
+//     let start = 2
+//     while (start <= Math.sqrt(element)) {
+//         if (element % start++ < 1) {
+//             return false
+//         }
+//     }
+//     return element > 1
+// }
+// ))
+
+//element is 9
+//2 <= math.sqrt(9) = 2 <= 3 = true
+//      if 9 % 2 <1 //false
+//      start = 3
+//3 <= 3 = true
+//is 9 % 3 < 1 //true
+//      return false
+
+//element is 5
+//2 <= math.sqrt(5) = 2 <= 2.2360 = true
+//      is 2.2360 % 2 < 1 //1.4142 = false
+//      start = 3
+//3 <= math.sqrt(5)
+//3 <= math.sqrt(5) //false
+//return 5
+
+
+//Array.filter()
+const strings2 = ['functional', 'Hello', 'startup', 'Web']
+const longwords = strings2.filter(word => word.length > 6)
+// console.log(strings2)
+// console.log(longwords)
+
+//Array.map()
+const nums = [2, 3, 4, 5]
+const square2 = nums.map(x => x * x)
+// console.log(square2)
+
+//Array.slice()
+let petsArray = ['cat', 'dog', 'bird', 'fish', 'rabbit']
+// console.log(petsArray)
+const petsArray2 = petsArray.slice(2, 4)
+// console.log(petsArray2)
+// console.log(petsArray.slice())
+// console.log(petsArray.slice(2))
+
+
+//Array.reduce()
+let numsArray = [1, 2, 3, 4]
+const numsSum = numsArray.reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue
+}, 5)
+// console.log(numsSum)
