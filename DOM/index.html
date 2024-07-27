@@ -3,6 +3,21 @@
 
 <head>
     <title>So many Kale Recipes</title>
+    <style>
+        .nav-heading {
+            font-size: 48px;
+            color: navy;
+            border: 1px dashed green;
+        }
+
+        button {
+            background-color: forestgreen;
+            color: white;
+            font-weight: bold;
+            padding: 5px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -13,9 +28,19 @@
         <p>
             Do you love to cook with <a href="#">kale</a>?
         </p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ-Z4ln5jbmZiQ85fuwrZApSKY7lrcdBIzi6j7Ycf70DFhnC-R"
+            alt="picture of kale" width="240px" id="kale-image">
         <div id="div1">This is div 1</div>
         <div class="cursive" id="div2">Yeah, well <em>this</em> is div 2</div>
         <div id="div3">Igonore those two. Welcome to div 3!</div>
+        <button id="my-button" type="button">Click me to add some text below</button>
+        <div id="my-Div"></div>
+        <button id="my-button2" type="button">Click me to add more text</button>
+
+        <div id='key-request'>Type a key: </div>
+        <input type="text" id="'key-input">
+        <div id="key-response">Here is the code of the key you pressed</div>
+        <div id='key-output'></div>
     </main>
     <script src="script.js"></script>
 </body>
