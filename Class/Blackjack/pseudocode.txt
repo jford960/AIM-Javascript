@@ -4,7 +4,7 @@ make a delay when dealing cards so you can tell what's being dealt to who
     lookup a sleep function or something similarlike await
 make a new game button that doesn't reset the deck
 
-make it so dealing happens in order, one to dealer, one to player, next to player, etc.
+make it so dealing happens in order, one to dealer, one to player, next to dealer, etc.
 
 optional (pick one):
 splitting of cards
