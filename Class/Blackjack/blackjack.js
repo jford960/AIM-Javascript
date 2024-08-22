@@ -70,13 +70,23 @@ async function startGame() {
     // console.log("Hidden card: " + hidden);
     // console.log("Dealer sum: " + dealerSum);
 
-    //deal 2 cards to dealer and players 
+    //create space for each player
+    for (const player of players) {
+        let newHand = document.getElementById('player-cards').appendChild(document.createElement('div'));
+        newHand.classList.add('playerHand');
+    }
+    let playerHands = document.getElementsByClassName('playerHand');
+
+    //deal 2 cards to dealer and each player 
     for (let cardsDealt = 0; cardsDealt < 2; cardsDealt++) {
         for (let i = 0; i < players.length; i++) { //deal to players
             let card = deck.pop();
+            let cardImg = document.createElement('img');
+            cardImg.src = "./cards/" + card + ".png";
             players[i].hand.push(card);
             players[i].points += getValue(card);
             players[i].aceCount += checkAce(card);
+            playerHands[i].append(cardImg);
         }
         // console.log('dealer sum: ' + dealerSum);
         let card = deck.pop();
@@ -89,6 +99,7 @@ async function startGame() {
         } else {//dealer already has a card, deal hidden card
             hidden = card;
             cardImg.src = "./cards/BACK.png";
+            cardImg.id = 'hidden';
             document.getElementById('dealer-cards').append(cardImg);
         }
 
@@ -206,7 +217,7 @@ const getValue = (card) => {
 const checkAce = (card) => {
     if (card[0] == 'A') {
         return 1;
-    }
+    } else return 0;
 }
 
 //let ace count for 1

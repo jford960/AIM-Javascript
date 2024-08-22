@@ -1,54 +1,7 @@
-Homework
-required:
-make a delay when dealing cards so you can tell what's being dealt to who
-    lookup a sleep function or something similarlike await
-make a new game button that doesn't reset the deck
+need to do something to track which players turn it is
+then make hit/stay only apply to them
 
-make it so dealing happens in order, one to dealer, one to player, next to dealer, etc.
-
-optional (pick one):
-splitting of cards
-multiple players (2 is enough)
-7 decks
-
-extra (don't do this):
-pseudocode to add betting and tracking of money
-
-PSEUDOCODE
-
-Build the deck
-Shuffle the deck
-start the game
-    create loop for dealing cards
-    player gets one card face up
-        create spot on page for card
-            create img element
-        deck.pop
-        get image of the popped card
-        get value of the card and add to player's sum
-        check the ace count
-        append card image to the screen
-    dealer gets one card face up
-        create spot on page for card
-            create img element
-        deck.pop
-        get image of the popped card
-        get value of the card and add to player's sum
-        check the ace count
-        append card image to the screen
-    player gets second card face up
-        create spot on page for card
-            create img element
-        deck.pop
-        get image of the popped card
-        get value of the card and add to player's sum
-        check the ace count
-        append card image to the screen
-    dealer gets second card face down
-        create spot on page for card
-            create img element
-        deck.pop
-        get image of the popped card
-        get value of the card and add to player's sum
-        check the ace count
-        append image for back of card to the screen
+Need to make dealer finish after all players are doesn
+    reveal hidden card
+    add hidden card to dealersum
+    draw more cards if needed
