@@ -6,15 +6,34 @@ let playerAceCount = 0;
 
 let hidden;
 let deck = [];
-let numOfDecks = 7;
+let numOfDecks = 1;
 
 let canHit = true;
+
+let numOfPlayers = 2;
+let players = [];
+
+class Player {
+    constructor() {
+        this.hand = [];
+        this.aceCount = 0;
+        this.canHit = true;
+        this.points = 0;
+    }
+}
+
+for (let p = 0; p < numOfPlayers; p++) {
+    players.push(new Player);
+}
 
 //create deck and draw initial cards
 window.onload = () => {
     buildDeck();
     shuffleDeck();
+    console.log(deck);
     startGame();
+    console.log(players);
+    // console.log(dealerSum);
 }
 
 const buildDeck = () => {
@@ -37,7 +56,7 @@ const shuffleDeck = () => {
         deck[i] = deck[j];
         deck[j] = temp;
     }
-    console.log(deck);
+    // console.log(deck);
 }
 
 const wait = (ms) => {
@@ -51,42 +70,57 @@ async function startGame() {
     // console.log("Hidden card: " + hidden);
     // console.log("Dealer sum: " + dealerSum);
 
-    for (let i = 0; i < 4; i++) {
-        await wait(1000);
-        console.log('waiting...')
-        let cardImg = document.createElement('img');
-        let card = deck.pop();
-        cardImg.src = "./cards/" + card + ".png";
-        if (i % 2 == 1) { //player cards
-            playerSum += getValue(card);
-            playerAceCount += checkAce(card);
-            document.getElementById('player-cards').append(cardImg);
-        } else { //dealer cards
-            if (i == 0) { //hidden card
-                hidden = card;
-                console.log("Hidden card: " + hidden);
-            } else {
-                dealerSum += getValue(card);
-                dealerAceCount += checkAce(card);
-                document.getElementById('dealer-cards').append(cardImg);
-            }
+    //deal 2 cards to dealer and players 
+    for (let cardsDealt = 0; cardsDealt < 2; cardsDealt++) {
+        for (let i = 0; i < players.length; i++) { //deal to players
+            let card = deck.pop();
+            players[i].hand.push(card);
+            players[i].points += getValue(card);
+            players[i].aceCount += checkAce(card);
         }
-        document.getElementById("dealer-sum").innerText = dealerSum;
-        document.getElementById("player-sum").innerText = playerSum;
+        // console.log('dealer sum: ' + dealerSum);
+        let card = deck.pop();
+        let cardImg = document.createElement('img');
+        if (dealerSum == 0) { //dealer has no cards
+            dealerSum += getValue(card);
+            dealerAceCount += checkAce(card);
+            cardImg.src = "./cards/" + card + ".png";
+            document.getElementById('dealer-cards').append(cardImg);
+        } else {//dealer already has a card, deal hidden card
+            hidden = card;
+            cardImg.src = "./cards/BACK.png";
+            document.getElementById('dealer-cards').append(cardImg);
+        }
+
     }
-    console.log("Dealer sum: " + dealerSum)
-    console.log("Player sum: " + playerSum)
 
-
-    //draw two player cards
-    // for (let i = 0; i < 2; i++) {
+    // for (let i = 0; i < 4; i++) {
+    //     await wait(1000);
+    //     // console.log('waiting...')
     //     let cardImg = document.createElement('img');
     //     let card = deck.pop();
     //     cardImg.src = "./cards/" + card + ".png";
-    //     playerSum += getValue(card);
-    //     playerAceCount += checkAce(card);
-    //     document.getElementById('player-cards').append(cardImg);
+    //     if (i % 2 == 1) { //player cards
+    //         playerSum += getValue(card);
+    //         playerAceCount += checkAce(card);
+    //         document.getElementById('player-cards').append(cardImg);
+    //     } else { //dealer cards
+    //         if (i == 0) { //hidden card
+    //             hidden = card;
+    //             // console.log("Hidden card: " + hidden);
+    //         } else {
+    //             dealerSum += getValue(card);
+    //             dealerAceCount += checkAce(card);
+    //             document.getElementById('dealer-cards').append(cardImg);
+    //         }
+    //     }
+    //     document.getElementById("dealer-sum").innerText = dealerSum;
+    //     document.getElementById("player-sum").innerText = playerSum;
     // }
+    // console.log("Dealer sum: " + dealerSum)
+    // console.log("Player sum: " + playerSum)
+
+
 
     //hit, stay, and new game buttons
     document.getElementById("hit").addEventListener("click", hit);
@@ -112,8 +146,8 @@ const hit = () => {
     }
 
     document.getElementById("player-sum").innerText = playerSum;
-    console.log("Drew card: " + card);
-    console.log("Player sum: " + playerSum);
+    // console.log("Drew card: " + card);
+    // console.log("Player sum: " + playerSum);
 }
 
 async function stay() {
@@ -211,13 +245,13 @@ const newGame = () => {
 
     //remake and shuffle the deck when running out of cards
     //doing it when < 3 decks
-    if (deck.length < 156) {
-        console.log('Need more cards. Rebuilding deck...')
+    if (deck.length < 75) {
+        // console.log('Need more cards. Rebuilding deck...')
         deck = [];
         buildDeck();
         shuffleDeck();
-        console.log('Using new deck:')
-        console.log(deck);
+        // console.log('Using new deck:')
+        // console.log(deck);
     }
 
     startGame();
