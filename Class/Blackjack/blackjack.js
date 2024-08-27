@@ -6,18 +6,28 @@ let playerAceCount = 0;
 
 let hidden;
 let deck = [];
-let numOfDecks = 1;
+let numOfDecks = 7;
 
 let canHit = true;
 
 let playerMoney = 1000;
 let playerBet = 0;
+let bettingButtons = document.getElementsByClassName('bet-buttons');
+
 
 //create deck and draw initial cards
 window.onload = () => {
     buildDeck();
     shuffleDeck();
-    startGame();
+    getBet();
+    // startGame();
+}
+
+const getBet = () => {
+    for (const button of bettingButtons) {
+        button.toggleAttribute('disabled');
+    }
+    bettingButtons[4].disabled = true;
 }
 
 const buildDeck = () => {
@@ -43,9 +53,17 @@ const shuffleDeck = () => {
     //console.log(deck);
 }
 
+const placeBet = () => {
+    for (const button of bettingButtons) {
+        button.toggleAttribute('disabled');
+    }
+    startGame()
+}
+
 const increaseBet = (addX) => {
     playerBet += addX;
     document.getElementById('bet-amount').innerText = '$' + playerBet;
+    document.getElementById('place-bet').disabled = false;
 }
 
 const wait = (ms) => {
@@ -58,6 +76,8 @@ async function startGame() {
     // dealerAceCount += checkAce(hidden);
     // console.log("Hidden card: " + hidden);
     // console.log("Dealer sum: " + dealerSum);
+
+    // bettingButtons[4].disabled = true; //disable place bet until bet is made
 
     for (let i = 0; i < 4; i++) {
         await wait(1000);
@@ -72,7 +92,7 @@ async function startGame() {
         } else { //dealer cards
             if (dealerSum != 0) { //hidden card
                 hidden = card;
-                // console.log('hidden card: ' + hidden)
+                console.log('hidden card: ' + hidden)
                 cardImg.src = "./cards/BACK.png";
                 cardImg.id = 'hidden';
                 document.getElementById('dealer-cards').append(cardImg);
@@ -85,6 +105,8 @@ async function startGame() {
         }
         document.getElementById("dealer-sum").innerText = dealerSum;
         document.getElementById("player-sum").innerText = playerSum;
+        document.getElementById('hit').disabled = false;
+        document.getElementById('stay').disabled = false;
     }
     // console.log("Dealer sum: " + dealerSum)
     // console.log("Player sum: " + playerSum)
@@ -125,10 +147,15 @@ const hit = () => {
 }
 
 async function stay() {
+    document.getElementById('hit').disabled = true;
+    document.getElementById('stay').disabled = true;
     canHit = false;
 
+    let hiddenCard = document.getElementById("hidden");
     //reveal hidden card
+    hiddenCard.classList.toggle('flipped');
     document.getElementById("hidden").src = "./cards/" + hidden + ".png";
+    dealerAceCount += checkAce(hidden);
     dealerSum += getValue(hidden);
 
     //reduce aces if needed
@@ -205,9 +232,9 @@ const reduceAce = (playerSum, playerAceCount) => {
 
 //reset and start new game
 const newGame = () => {
-    // console.log('Starting a new game')
-    // console.log('The deck looks like this:')
-    // console.log(deck);
+    console.log('Starting a new game')
+    console.log('The deck looks like this:')
+    console.log(deck);
     playerSum = 0;
     dealerSum = 0;
     playerAceCount = 0;
@@ -217,7 +244,13 @@ const newGame = () => {
     document.getElementById('bet-amount').innerText = '$0'
     document.getElementById('cash').innerText = '$' + playerMoney
     document.getElementById("result").style.visibility = 'hidden';
+    // document.getElementById('hit').disabled = false;
+    // document.getElementById('stay').disabled = false;
     document.getElementById('new-game').disabled = true;
+
+    // for (const button of bettingButtons) {
+    //     button.toggleAttribute('disabled');
+    // }
 
     // document.getElementById("hidden").src = "./cards/" + "BACK.png";
 
@@ -243,10 +276,13 @@ const newGame = () => {
         buildDeck();
         shuffleDeck();
         console.log('Using new deck...')
-        // console.log(deck);
+        console.log(deck);
     }
 
-    startGame();
+    document.getElementById("dealer-sum").innerText = dealerSum;
+    document.getElementById("player-sum").innerText = playerSum;
+
+    getBet();
 }
 
 //hit, stay, and new game buttons
@@ -257,4 +293,5 @@ document.getElementById("5-bet").addEventListener("click", function () { increas
 document.getElementById("10-bet").addEventListener("click", function () { increaseBet(10); });
 document.getElementById("25-bet").addEventListener("click", function () { increaseBet(25); });
 document.getElementById("50-bet").addEventListener("click", function () { increaseBet(50); });
+document.getElementById("place-bet").addEventListener("click", placeBet);
 

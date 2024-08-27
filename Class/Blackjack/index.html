@@ -4,35 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blackjack by Kenny Yip</title>
+    <title>Blackjack Game</title>
     <link rel="stylesheet" href="blackjack.css">
 </head>
 
-<body id="background">
-    <h2>Dealer: <span id="dealer-sum"></span></h2>
-    <div id="dealer-cards">
-        <!-- <img id="hidden" src="./cards/BACK.png" alt="hidden dealer card"> -->
+<body>
+    <div class="bet-area">
+        <h3>Player Money: <span id="cash">$1000</span></h3>
+        <h3>Player Bet: <span id="bet-amount">$0</span></h3>
+        <button class="bet-buttons" id="5-bet" disabled>+5</button>
+        <button class="bet-buttons" id="10-bet" disabled>+10</button>
+        <button class="bet-buttons" id="25-bet" disabled>+25</button>
+        <button class="bet-buttons" id="50-bet" disabled>+50</button>
+        <br>
+        <button class="bet-buttons" id="place-bet">Place Bet</button>
     </div>
 
-    <h2>Player: <span id="player-sum"></span></h2>
-    <div id="player-cards">
+    <div class="play-area" id="table">
+        <h2>Dealer: <span id="dealer-sum"></span></h2>
+        <div id="dealer-cards">
+            <!-- <img id="hidden" src="./cards/BACK.png" alt="hidden dealer card"> -->
+        </div>
 
+        <h2>Player: <span id="player-sum"></span></h2>
+        <div id="player-cards">
+
+        </div>
+        <br>
+
+
+
+        <button class="myButton" id="hit" disabled>Hit</button>
+        <button class="myButton" id="stay" disabled>Stay</button>
+
+        <button class="myButton" id="new-game" type="reset" disabled>Next Round</button>
+
+        <p id="result"></p>
     </div>
-    <br>
 
-    <button class="myButton" id="hit">Hit</button>
-    <button class="myButton" id="stay">Stay</button>
-
-    <button class="myButton" id="new-game" type="reset" disabled>Next Round</button>
-
-    <p id="result"></p>
-
-    <h3>Player Money: <span id="cash">$1000</span></h3>
-    <h3>Player Bet: <span id="bet-amount">$0</span></h3>
-    <button class="bet-buttons" id="5-bet">+5</button>
-    <button class="bet-buttons" id="10-bet">+10</button>
-    <button class="bet-buttons" id="25-bet">+25</button>
-    <button class="bet-buttons" id="50-bet">+50</button>
 
     <script src="blackjack.js"></script>
 </body>
