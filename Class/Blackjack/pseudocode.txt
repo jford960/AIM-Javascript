@@ -1,7 +1,5 @@
 Requirements 
 
-
-
 Dealing in correct order
 .5 to 1 second delay in dealing each card to see order if dealing is correct 
 Seven decks
@@ -14,8 +12,6 @@ Dealer getting soft 17
 Fetching Vegas rules of Black from an API (if I can find one)
 
 
-
-
 Extras (optional)
 
 Animate dealing and flipping of cards
@@ -25,9 +21,21 @@ Different looking deck of cards
 Choice of differently looking decks of cards to choose from (in f we can find some)
 Demo of game play to go along with rules
 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+Next make something to display instructions or guide player
+Then make a popup to decide how many decks to use
+
+now trying to have space for cards always present so screen doesn't move
+
 
 need to place bets first, then dealer
 also need to handle splitting and doubling down
+
+
+
+
+
 
 
 need to do something to track which players turn it is

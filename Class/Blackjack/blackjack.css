@@ -9,11 +9,16 @@ body {
     background-image: linear-gradient(#2f6b4d, #2e4d3e);
     /*'./tableBackground.jpg'; */
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+#dealer-cards,
+#player-cards {
+    min-height: 190px;
 }
 
 #dealer-cards img,
@@ -92,7 +97,13 @@ h2 {
 }
 
 .bet-buttons {
-    display: flexbox;
+    /* display: flexbox; */
+    margin-top: 3px;
+}
+
+#double-down {
+    display: none;
+
 }
 
 /* .play-area {

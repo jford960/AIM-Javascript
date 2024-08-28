@@ -23,13 +23,6 @@ window.onload = () => {
     // startGame();
 }
 
-const getBet = () => {
-    for (const button of bettingButtons) {
-        button.toggleAttribute('disabled');
-    }
-    bettingButtons[4].disabled = true;
-}
-
 const buildDeck = () => {
     let values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     let suits = ['C', 'D', 'H', 'S'];
@@ -53,11 +46,11 @@ const shuffleDeck = () => {
     //console.log(deck);
 }
 
-const placeBet = () => {
+const getBet = () => {
     for (const button of bettingButtons) {
         button.toggleAttribute('disabled');
     }
-    startGame()
+    bettingButtons[4].disabled = true;
 }
 
 const increaseBet = (addX) => {
@@ -66,21 +59,28 @@ const increaseBet = (addX) => {
     document.getElementById('place-bet').disabled = false;
 }
 
+const placeBet = () => {
+    for (const button of bettingButtons) {
+        button.toggleAttribute('disabled');
+    }
+    startGame()
+}
+
+const doubleDown = () => {
+    playerBet *= 2;
+    document.getElementById('bet-amount').innerText = '$' + playerBet;
+    hit();
+    stay();
+}
+
 const wait = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function startGame() {
-    // hidden = deck.pop();
-    // dealerSum = getValue(hidden);
-    // dealerAceCount += checkAce(hidden);
-    // console.log("Hidden card: " + hidden);
-    // console.log("Dealer sum: " + dealerSum);
-
-    // bettingButtons[4].disabled = true; //disable place bet until bet is made
 
     for (let i = 0; i < 4; i++) {
-        await wait(1000);
+        await wait(750);
         //console.log('waiting...')
         let cardImg = document.createElement('img');
         let card = deck.pop();
@@ -92,7 +92,7 @@ async function startGame() {
         } else { //dealer cards
             if (dealerSum != 0) { //hidden card
                 hidden = card;
-                console.log('hidden card: ' + hidden)
+                // console.log('hidden card: ' + hidden)
                 cardImg.src = "./cards/BACK.png";
                 cardImg.id = 'hidden';
                 document.getElementById('dealer-cards').append(cardImg);
@@ -103,29 +103,26 @@ async function startGame() {
                 document.getElementById('dealer-cards').append(cardImg);
             }
         }
-        document.getElementById("dealer-sum").innerText = dealerSum;
-        document.getElementById("player-sum").innerText = playerSum;
-        document.getElementById('hit').disabled = false;
-        document.getElementById('stay').disabled = false;
     }
+    document.getElementById("dealer-sum").innerText = dealerSum;
+    document.getElementById("player-sum").innerText = playerSum;
+    document.getElementById('hit').disabled = false;
+    document.getElementById('stay').disabled = false;
     // console.log("Dealer sum: " + dealerSum)
     // console.log("Player sum: " + playerSum)
 
+    //doubling down
+    if (playerSum >= 9 && playerSum <= 11) {
+        document.getElementById('double-down').style.display = 'inline-block';
+    }
 
-    //draw two player cards
-    // for (let i = 0; i < 2; i++) {
-    //     let cardImg = document.createElement('img');
-    //     let card = deck.pop();
-    //     cardImg.src = "./cards/" + card + ".png";
-    //     playerSum += getValue(card);
-    //     playerAceCount += checkAce(card);
-    //     document.getElementById('player-cards').append(cardImg);
-    // }
 
 }
 
 
 const hit = () => {
+    document.getElementById('double-down').style.display = 'none';
+
     if (!canHit) {
         return;
     }
@@ -147,6 +144,8 @@ const hit = () => {
 }
 
 async function stay() {
+    document.getElementById('double-down').style.display = 'none';
+
     document.getElementById('hit').disabled = true;
     document.getElementById('stay').disabled = true;
     canHit = false;
@@ -232,9 +231,9 @@ const reduceAce = (playerSum, playerAceCount) => {
 
 //reset and start new game
 const newGame = () => {
-    console.log('Starting a new game')
-    console.log('The deck looks like this:')
-    console.log(deck);
+    console.log('Starting a new round')
+    // console.log('The deck looks like this:')
+    // console.log(deck);
     playerSum = 0;
     dealerSum = 0;
     playerAceCount = 0;
@@ -276,7 +275,7 @@ const newGame = () => {
         buildDeck();
         shuffleDeck();
         console.log('Using new deck...')
-        console.log(deck);
+        // console.log(deck);
     }
 
     document.getElementById("dealer-sum").innerText = dealerSum;
@@ -294,4 +293,5 @@ document.getElementById("10-bet").addEventListener("click", function () { increa
 document.getElementById("25-bet").addEventListener("click", function () { increaseBet(25); });
 document.getElementById("50-bet").addEventListener("click", function () { increaseBet(50); });
 document.getElementById("place-bet").addEventListener("click", placeBet);
+document.getElementById("double-down").addEventListener("click", doubleDown);
 
