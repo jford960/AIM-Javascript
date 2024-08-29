@@ -14,6 +14,7 @@ let playerMoney = 1000;
 let playerBet = 0;
 let bettingButtons = document.getElementsByClassName('bet-buttons');
 
+let currentInstruction = document.getElementById('instruction');
 
 //create deck and draw initial cards
 window.onload = () => {
@@ -51,6 +52,7 @@ const getBet = () => {
         button.toggleAttribute('disabled');
     }
     bettingButtons[4].disabled = true;
+    currentInstruction.innerText = 'Place a bet!'
 }
 
 const increaseBet = (addX) => {
@@ -63,6 +65,7 @@ const placeBet = () => {
     for (const button of bettingButtons) {
         button.toggleAttribute('disabled');
     }
+    currentInstruction.innerText = 'Dealing cards...'
     startGame()
 }
 
@@ -111,19 +114,20 @@ async function startGame() {
     // console.log("Dealer sum: " + dealerSum)
     // console.log("Player sum: " + playerSum)
 
+    currentInstruction.innerText = 'Hit or Stay?'
+
     //doubling down
     if (playerSum >= 9 && playerSum <= 11) {
         document.getElementById('double-down').style.display = 'inline-block';
+        currentInstruction.innerText = 'You can double down!'
     }
-
-
 }
 
 
 const hit = () => {
     document.getElementById('double-down').style.display = 'none';
 
-    if (!canHit) {
+    if (canHit == false) {
         return;
     }
 
@@ -136,6 +140,7 @@ const hit = () => {
 
     if (reduceAce(playerSum, playerAceCount) > 21) {
         canHit = false;
+        document.getElementById('hit').disabled = true;
     }
 
     document.getElementById("player-sum").innerText = playerSum;
@@ -173,25 +178,30 @@ async function stay() {
 
     let message = "";
     if (playerSum > 21) {
-        message = "You Lose!";
+        currentInstruction.innerText = 'Better Luck Next Time!'
+        message = "Don't quit on a loss, play another round!";
         playerMoney -= playerBet;
     }
     else if (dealerSum > 21) {
-        message = "You Win!";
+        currentInstruction.innerText = 'You win!'
+        message = "Keep the streak alive, play another round!";
         playerMoney += playerBet;
 
     }
     else if (playerSum > dealerSum) {
-        message = "You Win!";
+        currentInstruction.innerText = 'You win!'
+        message = "Keep the streak alive, play another round!";
         playerMoney += playerBet;
 
     }
     else if (playerSum < dealerSum) {
-        message = "You Lose!";
+        currentInstruction.innerText = 'Better Luck Next Time!'
+        message = "Don't quit on a loss, play another round!";
         playerMoney -= playerBet;
     }
     else if (playerSum == dealerSum) {
-        message = "Tie Game!";
+        currentInstruction.innerText = 'Tie Game!'
+        message = "So close! Play another round!";
     }
 
     document.getElementById("dealer-sum").innerText = dealerSum;
